@@ -1,17 +1,17 @@
 import sqlite3
 
 def searchMultiWords(wordList):
-    times=0
+    times = 0
     
-    conn=sqlite3.connect('Google2.db')
+    conn = sqlite3.connect('Google2.db')
     
     cur = conn.cursor()
 
-    sqlquery=""
+    sqlquery = ""
 
-    url=[]
-    args=[]
-    freq=[]
+    url = []
+    args = []
+    freq = []
 
     for i in wordList:
         args.append(i)
@@ -27,15 +27,15 @@ def searchMultiWords(wordList):
             url.append(row[0])
             freq.append(row[1])
         else:
-            index=url.index(row[0])
+            index = url.index(row[0])
             freq[index]+=20  
         
     for i in url:                
-        index=url.index(i)
+        index = url.index(i)
         for j in wordList:
             if j.title() in i:
                 freq[index]+=5
 
-    sortedURLs = [x for _,x in sorted(zip(freq,url),reverse=True)]
+    sortedURLs = [x for _,x in sorted(zip(freq,url), reverse=True)]
     
-    return sortedURLs,freq,url       
+    return sortedURLs, freq, url       

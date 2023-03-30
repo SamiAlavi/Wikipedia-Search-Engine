@@ -2,7 +2,7 @@ import sqlite3
 
 ## creates database
 def createDatabase():
-    conn=sqlite3.connect('Google2.db')
+    conn = sqlite3.connect('Google2.db')
 
     conn.execute('''
     CREATE TABLE WORDS
@@ -24,7 +24,7 @@ def createDatabase():
 
 ## drops database
 def dropDatabase():    
-    conn=sqlite3.connect('Google2.db')
+    conn = sqlite3.connect('Google2.db')
     
     conn.execute('''
     DROP TABLE WORDS;''')
@@ -36,10 +36,10 @@ def dropDatabase():
     conn.close()
     
 def insertValues(fileName,wordsList):
-    conn=sqlite3.connect('Google2.db')  
+    conn = sqlite3.connect('Google2.db')  
                      
     for word in wordsList:
-        conn.execute('''INSERT INTO WORDS (URL, WORD) VALUES(?,?)''',(fileName,word)) ## docID, word
+        conn.execute('''INSERT INTO WORDS (URL, WORD) VALUES(?,?)''',(fileName, word)) ## docID, word
 
      
     conn.commit()
@@ -49,7 +49,7 @@ def insertValues(fileName,wordsList):
 ## sorts the invertedIndexDict by key in ascending order
 ## prints the sorted invertedIndexDict dictionary
 def insertSortedInvertedList(invertedIndexDict):
-    conn=sqlite3.connect('Google2.db')
+    conn = sqlite3.connect('Google2.db')
     
     for key in sorted(invertedIndexDict):
 #        print (("%s: ") % (key))
@@ -60,10 +60,10 @@ def insertSortedInvertedList(invertedIndexDict):
 #                    print (("(%s:)(DOCID: %s) (FREQ: %s) (INDEX LIST: %s)") % (key,docID,p,invertedIndexDict[key][0].get('index')))
                     for w in invertedIndexDict[key][0].get('index'):
 #                        print (("(%s:)(DOCID: %s) (FREQ: %s) (INDEX: %s)") % (key,docID,p,w))
-                        conn.execute('''INSERT INTO WORDDIST (WORD, URL, PAGERANK, IND) VALUES(?,?,?,?)''',(key,docID,p,w))                      
+                        conn.execute('''INSERT INTO WORDDIST (WORD, URL, PAGERANK, IND) VALUES(?,?,?,?)''', (key, docID, p, w))                      
                 else:
-                    docID=j
-                    p=i.get(j)
+                    docID = j
+                    p = i.get(j)
     
     conn.commit()
     conn.close()
